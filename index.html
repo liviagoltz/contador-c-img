@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+ <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section>
+        <h1>Contador</h1>
+        <p>0</p>
+        <button onclick="aumentar()">Mais</button>
+        <button onclick="zerar()">Zerar</button>
+        <button onclick="diminuir()">Menos</button>
+    </section>
+    <script>
+        let numero = 0
+        let florzinhasAtivadas = false;
+        let intervaloFlorzinhas = null;
+
+        function aumentar(){
+            numero = numero +1
+            render();
+            if(numero === 25 && !florzinhasAtivadas){
+                florzinhasAtivadas = true;
+                soltarFlorzinhas();
+         }
+        }
+          function zerar(){
+  numero = 0;
+  florzinhasAtivadas = false;
+  
+  if(intervaloFlorzinhas !== null){
+    clearInterval(intervaloFlorzinhas);
+    intervaloFlorzinhas = null;
+  }
+
+  render();
+}
+
+          function diminuir(){
+            numero = numero -1
+            render()
+        }
+        function render(){
+         const p = document.querySelector("p")
+         p.innerText = numero
+        }
+
+    function soltarFlorzinhas() {
+  intervaloFlorzinhas = setInterval(() => {
+    const flor = document.createElement("img");
+    const numFlor = Math.random() < 0.5 ? "01" : "02";
+    flor.src = `florfofa/flor${numFlor}.png`;
+    flor.classList.add("flower");
+    flor.style.left = Math.random() * window.innerWidth + "px";
+    flor.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+    document.body.appendChild(flor);
+
+    setTimeout(() => {
+      flor.remove();
+    }, 6000);
+  }, 300);
+}
+
+        render()
+    </script>
+</body>
+</html>
